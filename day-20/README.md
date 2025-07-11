@@ -84,3 +84,38 @@ As good practice, remember to clean up resources that you no longer need to avoi
 1. Make sure there are no images in the repository, or delete the images using `docker rmi` locally.
 2. Go to the AWS Management Console, navigate to the Amazon ECR service, and select your repository.
 3. Click on "Delete" and confirm the action.
+
+# ECR vs Dockerhub
+## 🚀 What are they?
+| Feature      | **Docker Hub**                            | **Amazon ECR (Elastic Container Registry)**                       |
+| ------------ | ----------------------------------------- | ----------------------------------------------------------------- |
+| **Type**     | Public/private container registry         | Private (or AWS-managed) container registry                       |
+| **Provider** | Docker, Inc.                              | Amazon Web Services (AWS)                                         |
+| **Use case** | Share images globally (public or private) | Store container images tightly integrated with AWS infrastructure |
+| **URL**      | `docker.io`                               | `*.dkr.ecr.<region>.amazonaws.com`                                |
+
+
+## 🔍 Key differences
+| Feature                  | **Docker Hub**                                        | **Amazon ECR**                                               |
+| ------------------------ | ----------------------------------------------------- | ------------------------------------------------------------ |
+| **Default access**       | Public (can also be private with limits on free tier) | Private by default                                           |
+| **Authentication**       | Docker Hub username/password (or PAT)                 | IAM roles, IAM users, AWS STS, IAM policies                  |
+| **Integration**          | CI/CD tools generally integrate easily                | Deep integration with ECS, EKS, CodePipeline, CodeBuild      |
+| **Geo replication**      | No native multi-region replication                    | Can replicate images across AWS regions                      |
+| **Scanning**             | Basic vulnerability scans                             | Advanced ECR image scanning (Amazon Inspector)               |
+| **Rate limits**          | Free accounts limited to 100 pulls/6 hours            | No such rate limits (cost based on usage)                    |
+| **Cost**                 | Free tier (rate limits), then paid                    | Pay for storage and data transfer                            |
+| **Registry URL example** | `docker.io/library/nginx:latest`                      | `123456789012.dkr.ecr.us-west-2.amazonaws.com/my-app:latest` |
+
+
+## ✅ When to use which?
+👉 Use Docker Hub when:
+You want to share images publicly (e.g., open source images like nginx, node, etc.).
+You work across multiple clouds or local environments, or need maximum compatibility.
+You want a familiar default — Docker CLI defaults to Docker Hub.
+
+## 👉 Use ECR when:
+You are running workloads primarily on AWS (ECS, EKS, EC2).
+You want to use IAM roles for authentication, avoiding static credentials.
+You need private, tightly controlled container registries.
+You want to replicate images across AWS regions for faster access & disaster recovery.
