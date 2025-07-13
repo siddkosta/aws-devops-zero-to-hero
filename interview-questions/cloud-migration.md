@@ -1,3 +1,11 @@
+## Notes
+### Steps for Migration (Monolithic app ---> Microservices app)
+1. Preparation
+2. Planning (Deciding the phases of migration)
+3. Migrate
+4. Monitor
+5. Optimize
+
 ### 1. What is cloud migration?
 Cloud migration refers to the process of moving applications, data, and workloads from on-premises environments or one cloud provider to another.
 
